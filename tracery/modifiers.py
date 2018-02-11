@@ -1,3 +1,8 @@
+import inflect
+
+p = inflect.engine()
+
+
 def replace(text, *params):
     return text.replace(params[0], params[1])
 
@@ -56,14 +61,116 @@ def lowercase(text, *params):
     return text.lower()
 
 
+
+#----
+#inflect.py modifiers
+def ordinal(text, *params):
+    return p.ordinal(text)
+
+def number_to_words(text, *params):
+    kwargs=dict(param.split('=') for param in params)
+    return p.number_to_words(text, **kwargs)
+
+def plural(text, *params):
+    if params: return p.plural(text, params[0])
+    return p.plural(text)
+
+def plural_noun(text, *params):
+    if params: return p.plural_noun(text, params[0])
+    return p.plural_noun(text)
+
+def plural_verb(text, *params):
+    if params: return p.plural_verb(text, params[0])
+    return p.plural_verb(text)
+
+def plural_adj(text, *params):
+    if len(params): return p.plural_adj(text, params[0])
+    return p.plural_adj(text)
+    
+def singular_noun(text, *params):
+    return p.singular_noun(text)
+    
+def no(text, *params):
+    return p.no(text)
+    
+def num(text, *params):
+    return p.num(text)
+    
+def compare(text, *params):
+    return p.compare(text, params[0])
+    
+def compare_nouns(text, *params):
+    return p.compare_nouns(text,params[0])
+
+def compare_adjs(text, *params):
+    return p.compare_adjs(text,params[0])
+
+def a(text, *params):
+    return p.a(text)
+
+def an(text, *params):
+    return p.an(text)
+
+def present_participle(text, *params):
+    return p.present_participle(text)
+
+def classical(text, *params):
+    kwargs=dict(param.split('=') for param in params)
+    return p.classical(text, **kwargs)
+    
+def gender(text, *params):
+    return p.gender(text)
+    
+def defnoun(text, *params):
+    return p.defnoun(text)
+    
+def defverb(text, *params):
+    return p.defverb(text)
+    
+def defadj(text, *params):
+    return p.defadj(text)
+    
+def defa(text, *params):
+    return p.defa(text)
+
+def defan(text, *params):
+    return p.defan(text)
+    
+# join  
+
+#---
 base_english = {
     'replace': replace,
     'capitalizeAll': capitalizeAll,
     'capitalize': capitalize_,
-    'a': a,
+    #'a': a,
     'firstS': firstS,
     's': s,
     'ed': ed,
     'uppercase': uppercase,
-    'lowercase': lowercase
+    'lowercase': lowercase, 
+    'compare':compare,
+    'compare_nouns':compare_nouns,
+    'compare_adjs':compare_adjs,
+    'a':a,
+    'an':an,
+    'ordinal': ordinal,
+    'number_to_words': number_to_words, 
+    'plural':plural,
+    'plural_noun':plural_noun,
+    'plural_verb':plural_verb,
+    'plural_adj':plural_adj,
+    'singular_noun':singular_noun,
+    'no':no,
+    'num':num,
+    'present_participle':present_participle,
+    'classical':classical,
+    'gender':gender,
+    'defnoun':defnoun,
+    'defverb':defverb,
+    'defadj':defadj,
+    'defa':defa,
+    'defan':defan
+    
+
 }
