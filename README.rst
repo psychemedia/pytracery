@@ -83,6 +83,28 @@ For example::
     Harry Potter and the Chromatin Remodelling Enzymes SNF2H and SNF2L Position Nucleosomes adjacent to CTCF and Other Transcription Factors.
     Harry Potter and the Model Organism Hermissenda crassicornis (Gastropoda: Heterobranchia) Is a Species Complex.
 
+Generating Sentences from *pandas* `Dataframe` rows
+---------------------------------------------------
+
+::
+    import pandas as pd
+
+    df=pd.DataFrame({'name':['Jo','Sam'], 'pos':[1,2]})
+
+    rules = {'origin':"#name# was placed #posord.number_to_words#.",
+             'posord':'#pos.ordinal#'}
+
+    def row_mapper(row):
+        row=row.to_dict()
+        for k in row:
+            rules[k] = str(row[k])
+
+        grammar = tracery.Grammar(rules)
+        grammar.add_modifiers(base_english)
+        return grammar.flatten("#origin#")
+
+    df['report']=df.apply(lambda row: row_mapper(row), axis=1)
+
 License
 -------
 
