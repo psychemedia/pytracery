@@ -38,15 +38,19 @@ about how Tracery works. In the Python port, you use Python dictionaries
 instead of JavaScript objects for the rules, but the concept is the same
 otherwise.
 
+The base modifiers have been extended to include modifiers based on the
+`inflect.py <https://github.com/pwdyson/inflect.py>`_ package.
+
 ::
 
     import tracery
     from tracery.modifiers import base_english
 
     rules = {
-        'origin': '#hello.capitalize#, #location#!',
+        'origin': '#hello.capitalize#, #location.plural(1)#! #num.number_to_words(decimal=mark,andword=annnnd)#',
         'hello': ['hello', 'greetings', 'howdy', 'hey'],
-        'location': ['world', 'solar system', 'galaxy', 'universe']
+        'location': ['world', 'solar system', 'galaxy', 'universe'],
+        'num': ['1023.5','12.12', '203']
     }
 
     grammar = tracery.Grammar(rules)
@@ -71,9 +75,9 @@ You can run the module on a JSON Tracery grammar file on the command line to out
 
 For example::
 
-    $ python -m tracery potterpapers.json 
+    $ python -m tracery potterpapers.json
     Harry Potter and the Tchebyshev transforms of the first and second kind
-    
+
     $ python -m tracery potterpapers.json 3
     Harry Potter and the Impact of Extremes in Outdoor Temperature and Sunshine Exposure on Birth Weight.
     Harry Potter and the Chromatin Remodelling Enzymes SNF2H and SNF2L Position Nucleosomes adjacent to CTCF and Other Transcription Factors.
@@ -100,4 +104,3 @@ This port inherits Tracery's original Apache License 2.0.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
