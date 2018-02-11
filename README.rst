@@ -95,7 +95,7 @@ The following example shows how to render separate rows in a `pandas` dataframe 
     rules = {'origin':"#name# was placed #posord.number_to_words#.",
             'posord':'#pos.ordinal#'}
 
-    def row_mapper(row):
+    def row_mapper(row, rules):
         row=row.to_dict()
         for k in row:
             rules[k] = str(row[k])
@@ -104,7 +104,7 @@ The following example shows how to render separate rows in a `pandas` dataframe 
         grammar.add_modifiers(base_english)
         return grammar.flatten("#origin#")
 
-    df['report']=df.apply(lambda row: row_mapper(row), axis=1)
+    df['report']=df.apply(lambda row: row_mapper(row, rules), axis=1)
 
 License
 -------
