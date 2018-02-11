@@ -97,6 +97,7 @@ The following example shows how to render separate rows in a `pandas` dataframe 
 
     def row_mapper(row, rules):
         row=row.to_dict()
+        rules=rules.copy()
         for k in row:
             rules[k] = str(row[k])
 
