@@ -86,13 +86,14 @@ For example::
 Generating Sentences from *pandas* `Dataframe` rows
 ---------------------------------------------------
 
-::
+The following example shows how to render separate rows in a `pandas` dataframe to text using `pytracery`. Note the requirement that data is passed as strings rather than numeric datatypes.
+
     import pandas as pd
 
     df=pd.DataFrame({'name':['Jo','Sam'], 'pos':[1,2]})
 
     rules = {'origin':"#name# was placed #posord.number_to_words#.",
-             'posord':'#pos.ordinal#'}
+            'posord':'#pos.ordinal#'}
 
     def row_mapper(row):
         row=row.to_dict()
