@@ -24,7 +24,7 @@ setup(
     packages=[
         'tracery',
     ],
-    install_requires=['inflect'],
+    install_requires=['inflect', 'pandas'],
     license="Apache License 2.0",
     zip_safe=True,
     keywords='tracery',
