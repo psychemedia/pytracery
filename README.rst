@@ -77,7 +77,7 @@ Tracery can be used with `pandas` dataframes to generate distinct texts from sep
     
     #Create example rule to apply to each row of dataframe
     rules = {'origin': "#name# was placed #position#!",
-             'position': "#pos.capitalizeAll"}
+             'position': "#pos.uppercase#"}
 
 The following function creates a full rules mapping from the base rules set, annotated with the values from  each column in a dataframe row.
 
@@ -93,7 +93,7 @@ The following function creates a full rules mapping from the base rules set, ann
             grammar = tracery.Grammar(rules)
             grammar.add_modifiers(base_english)
         
-    return grammar.flatten(root)
+        return grammar.flatten(root)
 
 We can now create a new row on the dataframe containing the Tracery story of each row:
 
