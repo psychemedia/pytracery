@@ -83,7 +83,7 @@ The following function creates a full rules mapping from the base rules set, ann
 
 ::
 
-    def pandas_row_mapper(row, rules, root):
+    def pandas_row_mapper(row, rules, root,  modifiers=base_english):
         ''' Function to parse single row of dataframe '''
         row=row.to_dict()
         rules=rules.copy()
@@ -91,7 +91,8 @@ The following function creates a full rules mapping from the base rules set, ann
         for k in row:
             rules[k] = str(row[k])
             grammar = tracery.Grammar(rules)
-            grammar.add_modifiers(base_english)
+            if modifiers is not None:
+                grammar.add_modifiers(modifiers)
         
         return grammar.flatten(root)
 
