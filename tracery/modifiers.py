@@ -1,4 +1,5 @@
 import inflect
+from pandas import isnull
 
 p = inflect.engine()
 
@@ -69,6 +70,7 @@ def ordinal(text, *params):
 
 def number_to_words(text, *params):
     kwargs=dict(param.split('=') for param in params)
+    if isnull(text): return "no recorded"
     return p.number_to_words(text, **kwargs)
 
 def plural(text, *params):
@@ -138,6 +140,15 @@ def defan(text, *params):
     
 # join  
 
+
+def int_to_words(text, *params):
+    try:
+        text=int(float(text))
+    except: pass
+    kwargs=dict(param.split('=') for param in params)
+    return p.number_to_words(text, **kwargs)
+
+
 #---
 base_english = {
     'replace': replace,
@@ -170,7 +181,7 @@ base_english = {
     'defverb':defverb,
     'defadj':defadj,
     'defa':defa,
-    'defan':defan
-    
-
+    'defan':defan,
+    #
+    'int_to_words': int_to_words, 
 }
