@@ -1,6 +1,13 @@
 import re
 import random
 
+#TH: support quoted strings in comma separated list
+import csv
+
+def parse_params(txt):
+    return [i for i in csv.reader([txt], skipinitialspace=True)][0]
+    
+
 try:
     unicode = unicode
 except NameError:
@@ -90,7 +97,8 @@ class Node(object):
                         regexp = re.compile(r'\(([^)]+)\)')
                         matches = regexp.findall(mod_name)
                         if len(matches) > 0:
-                            mod_params = matches[0].split(",")
+                            #mod_params = matches[0].split(",")
+                            mod_params = parse_params(matches[0])
                             mod_name = mod_name[:mod_name.find('(')]
                     mod = self.grammar.modifiers.get(mod_name, None)
                     if mod is None:
@@ -134,7 +142,7 @@ class NodeAction(object):  # has a 'raw' attribute
     def activate(self):
         grammar = self.node.grammar
         if self.type == 0:
-            self.rule_sections = self.rule.split(",")
+            self.rule_sections = parse_params(self.rule)#self.rule.split(",")
             self.finished_rules = []
             self.rule_nodes = []
             for rule_section in self.rule_sections:
