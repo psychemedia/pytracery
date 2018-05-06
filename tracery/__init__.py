@@ -5,7 +5,7 @@ import random
 import csv
 
 def parse_params(txt):
-    return [i for i in csv.reader([txt], skipinitialspace=True)][0]
+    return [ i.strip('"') for i in list(csv.reader([txt], skipinitialspace=True))[0] ]
     
 
 try:
